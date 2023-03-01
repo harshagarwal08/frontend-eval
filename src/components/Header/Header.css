@@ -1,0 +1,24 @@
+.recordsHeader {
+    font-family: 'Big Shoulders Inline Display', cursive;
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    padding-bottom: 20px;
+    z-index: 10;
+}
+
+.recordsHeaderText {
+    padding-left: 80px;
+    padding-top: 15px;
+    margin: 0px;
+    font-size: 45px;
+    font-weight: 100;
+    color: #F5F5F5;
+}
+
+@media screen and (max-width: 425px) {
+    .recordsHeaderText{
+        padding-left: 20px;
+    }
+}
