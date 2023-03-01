@@ -17,7 +17,7 @@
 .eventList{
     display: flex;
     justify-content: center;
-    width: 80%;
+    width: 60%;
     flex-wrap: wrap;
     gap: 20px 60px;
 }
@@ -88,5 +88,8 @@ align-items: center;
     }
     input{
         width: 100px;
+    }
+    .eventList{
+        width: 80%;
     }
 }

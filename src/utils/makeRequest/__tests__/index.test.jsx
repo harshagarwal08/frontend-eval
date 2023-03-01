@@ -6,6 +6,12 @@ import BACKEND_URL, {
 } from "../../../constants/apiEndpoints";
 import { ERROR_ROUTE } from "../../../constants/routes";
 
+const mockedNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  useNavigate: () => mockedNavigate,
+}));
+
 jest.mock("axios");
 
 describe("makeRequest", () => {
@@ -85,8 +91,7 @@ describe("makeRequest", () => {
   it("should make API call with appropriate request options and return response body when both endpoint and request body are specified", async () => {
     mockedAxios.mockResolvedValueOnce({
       data: {
-        like: true,
-        count: 1,
+        isBookmarked: true,
       },
     });
     expect(mockedAxios).not.toHaveBeenCalled();
