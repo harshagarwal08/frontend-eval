@@ -1,5 +1,5 @@
 import axios from "axios";
-import BACKEND_URL from "../../constants/apiEndpoints";
+import { BACKEND_URL } from "../../constants/apiEndpoints";
 import { ERROR_ROUTE } from "../../constants/routes";
 
 const makeRequest = async (apiEndPoint, navigate, dynamicConfig = {}) => {

@@ -1,0 +1,36 @@
+.cardContainer{
+
+    width: 300px;
+    height: 300px;
+    border: 2px solid red;
+}
+.cardImage{
+    height: 200px;
+    width: 100%;
+}
+.cardImage img{
+    height: 100%;
+    width: 100%;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+}
+.title{
+font-family: 'Big Shoulders Text', cursive;
+}
+.desc{
+
+}
+.details{
+
+}
+.options{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.leftButton{
+    display: flex;
+    align-items: center;
+}

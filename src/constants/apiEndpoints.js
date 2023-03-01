@@ -1,4 +1,4 @@
-export const BACKEND_URL = "http://localhost:8080/api/";
+export const BACKEND_URL = "http://localhost:8000/api/";
 
 export const GET_ALL_EVENTS = {
   url: "events",
