@@ -28,6 +28,14 @@ function HomePage() {
   const hideFilterFn = () => {
     setHideFilter(!hideFilter);
   };
+  const searchEvent = () => {
+    const data = events.filter(
+      (event) => event.name.toLowerCase() === inputText.trim().toLowerCase()
+    );
+    if (data) {
+      setEvents(data);
+    }
+  };
   return (
     <div className="homePageContainer">
       {events ? (
@@ -51,7 +59,11 @@ function HomePage() {
                   value={inputText}
                   onChange={setInputValue}
                 />
-                <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
+                <FontAwesomeIcon
+                  icon={faMagnifyingGlass}
+                  size="lg"
+                  onClick={searchEvent}
+                />
               </div>
             </div>
             <div className={hideFilter ? "hideFilter" : "filterOptions"}>
