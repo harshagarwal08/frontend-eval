@@ -1,29 +1,55 @@
 .cardContainer{
-
-    width: 300px;
-    height: 300px;
-    border: 2px solid red;
+    width: 250px;
+    height: 800px;
+    border-radius: 15px 15px;
 }
 .cardImage{
     height: 200px;
     width: 100%;
+    border-bottom: 1px solid white;
 }
 .cardImage img{
     height: 100%;
     width: 100%;
+    border-radius: 15px 15px 0 0;
 }
 .content{
+    border-radius: 0 0 15px 15px;
+    background-color: black;
+    padding: 10px;
+    text-align: center;
     display: flex;
+    color: white;
     flex-direction: column;
 }
 .title{
 font-family: 'Big Shoulders Text', cursive;
+text-transform: uppercase;
+margin-bottom: 10px;
 }
 .desc{
-
+font-size: 12px;
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 3; 
+line-clamp: 3;
+-webkit-box-orient: vertical;
 }
 .details{
-
+    font-size: 12px;
+}
+.venue{
+    margin-bottom: 0;
+    overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 1; 
+line-clamp: 1;
+-webkit-box-orient: vertical;
+}
+.date{
+    margin-top: 0;
 }
 .options{
     display: flex;
@@ -33,4 +59,12 @@ font-family: 'Big Shoulders Text', cursive;
 .leftButton{
     display: flex;
     align-items: center;
+    gap: 5px;
+}
+.iconText {
+    font-size: 12px;
+    margin: 0;
+}
+.eventDetails{
+    width: 80%;
 }

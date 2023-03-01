@@ -17,10 +17,3 @@ body{
   flex-direction: column;
   width: 100vw;
 }
-.appBodyContainer {
-  display: flex;
-  flex-direction: column;
-  margin-top: 80px;
-  width: 100vw;
-  height: 100%;
-}
