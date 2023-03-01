@@ -9,6 +9,7 @@
 }
 .loading-center{
     font-size: 2rem;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,4 +20,69 @@
     width: 80%;
     flex-wrap: wrap;
     gap: 20px 60px;
+}
+.optionsContainer{
+    margin-top: 40px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    gap: 15px;
+    font-size: 14px;
+}
+@media screen and (max-width: 625px){
+    .optionsContainer{
+    width: 90%;
+    }
+}
+input{
+    padding: 8px;
+    width: 175px;
+    border-radius: 10px 10px;
+    border: 1px solid grey;
+    outline: 0;
+}
+.options{
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+}
+.filter{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.filterOptions{
+    display: flex;
+    justify-content: space-between;
+}
+.left{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.right{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.filterButtonsRight{
+    display: flex;
+    gap: 5px;
+    justify-content: end;
+    align-items: center;
+}
+.filterButtonsLeft{
+    display: flex;
+    gap: 5px;
+    justify-content: start;
+    align-items: center;
+}
+.searchBar{
+    display: flex;
+    gap: 8px;
+align-items: center;
+}
+.hideFilter{
+    display: none;
 }

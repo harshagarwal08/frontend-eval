@@ -18,7 +18,6 @@ import { UPDATE_EVENT } from "../../constants/apiEndpoints";
 import { EVENT_DETAILS } from "../../constants/routes";
 
 function EventCard({ eventDetails, showDetails }) {
-  console.log(showDetails);
   const navigate = useNavigate();
   const [isRegistered, setIsRegistered] = useState(eventDetails.isRegistered);
   const [isBookmarked, setIsBookmarked] = useState(eventDetails.isBookmarked);
@@ -32,16 +31,14 @@ function EventCard({ eventDetails, showDetails }) {
     ? { icon: faBookmarked, color: "#EA8282" }
     : { icon: faBookmark, color: "#EA8282" };
 
-  if (showDetails) {
-    const updateRegister = async () => {
-      await makeRequest(UPDATE_EVENT(eventDetails.id), {
-        data: {
-          isRegistered: !isRegistered,
-        },
-      });
-      setIsRegistered(!isRegistered);
-    };
-  }
+  const updateRegister = async () => {
+    await makeRequest(UPDATE_EVENT(eventDetails.id), {
+      data: {
+        isRegistered: !isRegistered,
+      },
+    });
+    setIsRegistered(!isRegistered);
+  };
 
   const updateBookmark = async () => {
     await makeRequest(UPDATE_EVENT(eventDetails.id), {
@@ -65,8 +62,10 @@ function EventCard({ eventDetails, showDetails }) {
       </div>
       <div className="content">
         <div className="title">{eventDetails.name}</div>
-        <div className="desc">{eventDetails.description}</div>
-        <div className="details">
+        <div className={showDetails ? "noClamp" : "desc"}>
+          {eventDetails.description}
+        </div>
+        <div className={showDetails ? "noClamp" : "details"}>
           <p className="venue">VENUE: {eventDetails.venue}</p>
           <p className="date">DATE: {dateTime}</p>
         </div>
@@ -93,6 +92,19 @@ function EventCard({ eventDetails, showDetails }) {
             />
           </div>
         </div>
+        {showDetails ? (
+          <div>
+            <button
+              type="button"
+              className="registerButton"
+              onClick={updateRegister}
+            >
+              {isRegistered ? "UNREGISTER" : "REGISTER"}
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
