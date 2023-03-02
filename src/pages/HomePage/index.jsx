@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,12 +18,16 @@ import makeRequest from "../../utils/makeRequest";
 function HomePage() {
   const navigate = useNavigate();
   const [events, setEvents] = useState();
-
-  useEffect(() => {
-    makeRequest(GET_ALL_EVENTS, {}, navigate).then((data) => setEvents(data));
-  }, []);
+  const [filteredEvents, setFilteredEvents] = useState();
+  const [filter, setFilter] = useState("ALL");
   const [inputText, setInputText] = useState("");
   const [hideFilter, setHideFilter] = useState(false);
+  useEffect(() => {
+    makeRequest(GET_ALL_EVENTS, {}, navigate).then((data) => {
+      setEvents(data);
+      setFilteredEvents(data);
+    });
+  }, []);
   const setInputValue = (e) => {
     setInputText(e.target.value);
   };
@@ -29,12 +35,21 @@ function HomePage() {
     setHideFilter(!hideFilter);
   };
   const searchEvent = () => {
-    const data = events.filter(
-      (event) => event.name.toLowerCase() === inputText.trim().toLowerCase()
+    return setFilteredEvents(
+      filteredEvents.filter((event) =>
+        event.name.toLowerCase().includes(inputText.toLowerCase())
+      )
     );
-    if (data) {
-      setEvents(data);
-    }
+  };
+  const filterEvents = (filterName) => {
+    setFilter(filterName);
+    if (filterName === "ALL") setFilteredEvents(events);
+    else if (filterName === "BOOKMARKED")
+      setFilteredEvents(events.filter((event) => event.isBookmarked));
+    else if (filterName === "SEATS AVAILABLE")
+      setFilteredEvents(events.filter((event) => event.areSeatsAvailable));
+    else if (filterName === "REGISTERED")
+      setFilteredEvents(events.filter((event) => event.isRegistered));
   };
   return (
     <div className="homePageContainer">
@@ -68,29 +83,65 @@ function HomePage() {
             </div>
             <div className={hideFilter ? "hideFilter" : "filterOptions"}>
               <div className="left">
-                <div className="filterButtonsLeft">
-                  <FontAwesomeIcon icon={faCircleDot} size="lg" />
+                <div
+                  type="button"
+                  className="filterButtonsLeft"
+                  onClick={() => {
+                    filterEvents("ALL");
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={filter === "ALL" ? faCircleDot : faCircle}
+                    size="lg"
+                  />
                   <div>ALL</div>
                 </div>
-                <div className="filterButtonsLeft">
-                  <FontAwesomeIcon icon={faCircle} size="lg" />
+                <div
+                  type="button"
+                  className="filterButtonsLeft"
+                  onClick={() => {
+                    filterEvents("REGISTERED");
+                  }}
+                >
+                  <FontAwesomeIcon
+                    icon={filter === "REGISTERED" ? faCircleDot : faCircle}
+                    size="lg"
+                  />
                   <div>REGISTERED</div>
                 </div>
               </div>
               <div className="right">
-                <div className="filterButtonsRight">
+                <div
+                  type="button"
+                  className="filterButtonsRight"
+                  onClick={() => {
+                    filterEvents("BOOKMARKED");
+                  }}
+                >
                   <div>BOOKMARKED</div>
-                  <FontAwesomeIcon icon={faCircle} size="lg" />
+                  <FontAwesomeIcon
+                    icon={filter === "BOOKMARKED" ? faCircleDot : faCircle}
+                    size="lg"
+                  />
                 </div>
-                <div className="filterButtonsRight">
+                <div
+                  type="button"
+                  className="filterButtonsRight"
+                  onClick={() => {
+                    filterEvents("SEATS AVAILABLE");
+                  }}
+                >
                   <div>SEATS AVAILABLE</div>
-                  <FontAwesomeIcon icon={faCircle} size="lg" />
+                  <FontAwesomeIcon
+                    icon={filter === "SEATS AVAILABLE" ? faCircleDot : faCircle}
+                    size="lg"
+                  />
                 </div>
               </div>
             </div>
           </div>
           <div className="eventList">
-            {events.map((event) => {
+            {filteredEvents.map((event) => {
               return <EventCard eventDetails={event} key={event.id} />;
             })}
           </div>

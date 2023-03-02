@@ -18,3 +18,13 @@ export const UPDATE_EVENT = (id) => {
     method: "patch",
   };
 };
+
+export const GET_ALL_THEMES = {
+  url: "themes",
+  method: "get",
+};
+
+export const SAVE_THEME = {
+  url: "themes",
+  method: "put",
+};

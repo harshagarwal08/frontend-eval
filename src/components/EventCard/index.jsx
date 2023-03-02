@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -16,8 +16,13 @@ import formatTime from "../../utils/commons/formatTime";
 import makeRequest from "../../utils/makeRequest";
 import { UPDATE_EVENT } from "../../constants/apiEndpoints";
 import { EVENT_DETAILS } from "../../constants/routes";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 function EventCard({ eventDetails, showDetails }) {
+  const { themes } = useContext(ThemeContext);
+  const { colorHexCode } = themes
+    ? themes.themes[themes.preferredThemeId - 1]
+    : "#000000";
   const navigate = useNavigate();
   const [isRegistered, setIsRegistered] = useState(eventDetails.isRegistered);
   const [isBookmarked, setIsBookmarked] = useState(eventDetails.isBookmarked);
@@ -40,7 +45,8 @@ function EventCard({ eventDetails, showDetails }) {
     setIsRegistered(!isRegistered);
   };
 
-  const updateBookmark = async () => {
+  const updateBookmark = async (e) => {
+    e.stopPropagation();
     await makeRequest(UPDATE_EVENT(eventDetails.id), {
       data: {
         isBookmarked: !isBookmarked,
@@ -60,7 +66,7 @@ function EventCard({ eventDetails, showDetails }) {
       <div className="cardImage">
         <img src={eventDetails.imgUrl} alt="eventImage" />
       </div>
-      <div className="content">
+      <div className="content" style={{ backgroundColor: colorHexCode }}>
         <div className="title">{eventDetails.name}</div>
         <div className={showDetails ? "noClamp" : "desc"}>
           {eventDetails.description}
@@ -92,7 +98,7 @@ function EventCard({ eventDetails, showDetails }) {
             />
           </div>
         </div>
-        {showDetails ? (
+        {showDetails && eventDetails.areSeatsAvailable ? (
           <div>
             <button
               type="button"
